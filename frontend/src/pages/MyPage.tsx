@@ -25,7 +25,7 @@ const userData = {
 
 export default function MyPage() {
   return (
-    <div className="container mx-auto p-4 pt-16">
+    <div className="container mx-auto p-4 pt-20 pb-24">
       <Card className="mb-4 bg-white shadow-md rounded">
         <CardHeader title="プロフィール" />
         <CardContent>
