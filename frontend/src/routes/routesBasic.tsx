@@ -3,9 +3,9 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-import Diary from "../component/Diary";
-import MusicLibrary from "../component/MusicLibrary";
-import MyPage from "../component/MyPage";
+import Diary from "../pages/Diary.tsx";
+import MusicLibrary from "../pages/MusicLibrary.tsx";
+import MyPage from "../pages/MyPage.tsx";
 import App from "../App.tsx";
 import Home from "../pages/Home.tsx";
 

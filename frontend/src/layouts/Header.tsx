@@ -15,18 +15,18 @@ export default function Header() {
       <header className="fixed top-0 left-0 right-0 bg-orange-50 shadow-md z-10">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-4">
-            <h1 className="text-xl font-semibold text-orange-600">
+            <h1 className="text-xl font-semibold text-orange-600 hover:text-orange-700">
               <Link to="/">日記アプリ</Link>
             </h1>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-orange-600 hover:text-orange-800 transition-colors"
+              className="md:hidden text-orange-600 hover:text-orange-700 transition-colors"
             >
               <MenuIcon className="h-6 w-6" />
             </button>
             <nav className="hidden md:block">
               <ul className="flex flex-row space-x-6">
-                <li className="flex items-center">
+                <li className="flex items-center text-orange-600 hover:text-orange-700">
                   <Create className="h-5 w-5 mr-2" />
                   <span>
                     <Link
@@ -37,7 +37,7 @@ export default function Header() {
                     </Link>
                   </span>
                 </li>
-                <li className="flex items-center">
+                <li className="flex items-center text-orange-600 hover:text-orange-700">
                   <LibraryMusicIcon className="h-5 w-5 mr-2" />
                   <span>
                     <Link
@@ -48,7 +48,7 @@ export default function Header() {
                     </Link>
                   </span>
                 </li>
-                <li className="flex items-center">
+                <li className="flex items-center text-orange-600 hover:text-orange-700">
                   <Person className="h-5 w-5 mr-2" />
                   <span>
                     <Link
@@ -70,7 +70,7 @@ export default function Header() {
           overlayClassName="fixed inset-0 bg-black bg-opacity-50"
         >
           <ul className="flex flex-col space-y-4 mt-10">
-            <li className="flex items-center">
+            <li className="flex items-center text-orange-600 hover:text-orange-700">
               <Create className="h-5 w-5 mr-2" />
               <span>
                 <Link to="/diary" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -78,7 +78,7 @@ export default function Header() {
                 </Link>
               </span>
             </li>
-            <li className="flex items-center">
+            <li className="flex items-center text-orange-600 hover:text-orange-700">
               <LibraryMusicIcon className="h-5 w-5 mr-2" />
               <span>
                 <Link to="/music" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -86,7 +86,7 @@ export default function Header() {
                 </Link>
               </span>
             </li>
-            <li className="flex items-center">
+            <li className="flex items-center text-orange-600 hover:text-orange-700">
               <Person className="h-5 w-5 mr-2" />
               <span>
                 <Link to="/mypage" onClick={() => setIsMenuOpen(!isMenuOpen)}>
