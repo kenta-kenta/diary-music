@@ -1,4 +1,4 @@
-const Diary = () => {
+const DiaryForm = () => {
   return (
     <>
       <div className="pt-16">
@@ -18,4 +18,4 @@ const Diary = () => {
   );
 };
 
-export default Diary;
+export default DiaryForm;
