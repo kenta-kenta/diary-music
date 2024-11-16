@@ -16,7 +16,7 @@ export default function Header() {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-4">
             <h1 className="text-xl font-semibold text-orange-600">
-              日記アプリ
+              <Link to="/">日記アプリ</Link>
             </h1>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
