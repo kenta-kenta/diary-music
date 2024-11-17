@@ -29,34 +29,19 @@ export default function Header() {
                 <li className="flex items-center text-orange-600 hover:text-orange-700">
                   <Create className="h-5 w-5 mr-2" />
                   <span>
-                    <Link
-                      to="/diary"
-                      onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    >
-                      日記を書く
-                    </Link>
+                    <Link to="/diary">日記を書く</Link>
                   </span>
                 </li>
                 <li className="flex items-center text-orange-600 hover:text-orange-700">
                   <LibraryMusicIcon className="h-5 w-5 mr-2" />
                   <span>
-                    <Link
-                      to="/music"
-                      onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    >
-                      音楽ライブラリ
-                    </Link>
+                    <Link to="/music">音楽ライブラリ</Link>
                   </span>
                 </li>
                 <li className="flex items-center text-orange-600 hover:text-orange-700">
                   <Person className="h-5 w-5 mr-2" />
                   <span>
-                    <Link
-                      to="/mypage"
-                      onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    >
-                      マイページ
-                    </Link>
+                    <Link to="/mypage">マイページ</Link>
                   </span>
                 </li>
               </ul>
