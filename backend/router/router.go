@@ -1,15 +1,15 @@
 package router
 
 import (
-	"net/http"
-
+	"github.com/kenta-kenta/diary-music/controller"
 	"github.com/labstack/echo/v4"
 )
 
-func NewRouter() *echo.Echo {
+func NewRouter(uc controller.IUserController) *echo.Echo {
 	e := echo.New()
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello World")
-	})
+	e.POST("/signup", uc.SignUp)
+	e.POST("/login", uc.Login)
+	e.POST("/logout", uc.Logout)
+
 	return e
 }
