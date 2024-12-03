@@ -1,14 +1,20 @@
-import { Create, Person } from "@mui/icons-material";
-import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
-import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
-import Modal from "react-modal";
-import { Link } from "react-router-dom";
+import { Create, Person } from '@mui/icons-material'
+import LibraryMusicIcon from '@mui/icons-material/LibraryMusic'
+import MenuIcon from '@mui/icons-material/Menu'
+import { useState } from 'react'
+import Modal from 'react-modal'
+import { Link } from 'react-router-dom'
+import { useMutateAuth } from '../hooks/useMutateAuth'
+import { ArrowRightOnRectangleIcon } from '@heroicons/react/20/solid'
 
-Modal.setAppElement("#root");
+Modal.setAppElement('#root')
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { logoutMutation } = useMutateAuth()
+  const logout = async () => {
+    await logoutMutation.mutateAsync()
+  }
 
   return (
     <>
@@ -43,6 +49,12 @@ export default function Header() {
                   <span>
                     <Link to="/mypage">マイページ</Link>
                   </span>
+                </li>
+                <li className="flex items-center text-orange-600 hover:text-orange-700">
+                  <ArrowRightOnRectangleIcon
+                    onClick={logout}
+                    className="h-5 w-5 mr-2"
+                  />
                 </li>
               </ul>
             </nav>
@@ -79,9 +91,15 @@ export default function Header() {
                 </Link>
               </span>
             </li>
+            <li className="flex items-center text-orange-600 hover:text-orange-700">
+              <ArrowRightOnRectangleIcon
+                onClick={logout}
+                className="h-5 w-5 mr-2"
+              />
+            </li>
           </ul>
         </Modal>
       </header>
     </>
-  );
+  )
 }

@@ -32,7 +32,7 @@ func NewRouter(uc controller.IUserController, dc controller.IDiaryController) *e
 	e.POST("/login", uc.Login)
 	e.POST("/logout", uc.Logout)
 	e.GET("/csrf", uc.CsrfToken)
-	t := e.Group("/tasks")
+	t := e.Group("/diaries")
 	t.Use(echojwt.WithConfig(echojwt.Config{
 		SigningKey:  []byte(os.Getenv("SECRET")), // Secret key
 		TokenLookup: "cookie:token",              // Where to look for the token
