@@ -2,7 +2,6 @@ import { useQueryDiaries } from '../hooks/useQueryDiaries'
 import { useMutateDiary } from '../hooks/useMutateDiary'
 import useStore from '../store'
 import { FormEvent } from 'react'
-import { ShieldCheckIcon } from 'lucide-react'
 import { DiaryItem } from '../component/DiaryItem'
 
 const Diary = () => {
@@ -30,15 +29,15 @@ const Diary = () => {
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         >
           <textarea
-            className="w-full mb-4 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
-            placeholder="content ?"
+            className="w-full h-40 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
+            placeholder="今日はどんな1日だった？"
             onChange={(e) =>
               updateDiary({ ...editedDiary, content: e.target.value })
             }
             value={editedDiary.content || ''}
           />
           <button
-            className="w-full mb-4 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full mb-4 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 bg-orange-500 text-white"
             type="submit"
             disabled={!editedDiary.content}
           >
@@ -50,7 +49,12 @@ const Diary = () => {
         ) : data && data.length > 0 ? (
           <ul className="mt-4 space-y-2">
             {data.map((diary) => (
-              <DiaryItem key={diary.id} id={diary.id} content={diary.content} />
+              <DiaryItem
+                key={diary.id}
+                id={diary.id}
+                content={diary.content}
+                created_at={diary.created_at}
+              />
             ))}
           </ul>
         ) : (
@@ -58,12 +62,6 @@ const Diary = () => {
             日記のデータがありません
           </p>
         )}
-        <div>
-          <ShieldCheckIcon className="w-5 h-5 inline-block" />
-          <span className="text-gray-700 text-3xl">
-            Diary app by React/Go(echo)
-          </span>
-        </div>
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react'
 import { useMutateAuth } from '../hooks/useMutateAuth'
-import { ArrowPathIcon, CheckBadgeIcon } from '@heroicons/react/20/solid'
+import { Sync, VerifiedUser } from '@mui/icons-material'
 
 export const Auth = () => {
   const [email, setEmail] = useState('')
@@ -28,7 +28,7 @@ export const Auth = () => {
   return (
     <div className="flex justify-center items-center flex-col min-h-screen text-gray-600 font-mono">
       <div>
-        <CheckBadgeIcon className="w-10 inline-block text-blue-500" />
+        <VerifiedUser className="w-10 inline-block text-orange-600" />
         <span className="text-gray-700 text-3xl">
           Todo app by React/Go(echo)
         </span>
@@ -66,19 +66,19 @@ export const Auth = () => {
             value={pw}
           />
         </div>
-        <div>
+        <div className="flex justify-center">
           <button
             type="submit"
             disabled={!email || !pw}
-            className="my-3 mx-1 px-3 py-1 bg-blue-600 text-white"
+            className="my-3 px-3 py-1 bg-orange-600 text-white rounded hover:bg-orange-700"
           >
             {isLogin ? 'Login' : 'Sign up'}
           </button>
         </div>
       </form>
-      <ArrowPathIcon
+      <Sync
         onClick={() => setIsLogin(!isLogin)}
-        className="w-5 cursor-pointer text-blue-500"
+        className="w-5 cursor-pointer text-orange-600"
       />
     </div>
   )

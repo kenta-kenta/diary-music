@@ -6,10 +6,11 @@ import { Auth } from '../component/Auth'
 import App from '../App'
 import Home from '../pages/Home'
 import Diary from '../pages/Diary'
-import MusicLibrary from '../pages/MusicLibrary'
 import MyPage from '../pages/MyPage'
+import Diaries from '../pages/Diaries'
 
 function AppRoutes() {
+  // CSRFトークンを取得してaxiosのデフォルトヘッダーに設定
   useEffect(() => {
     axios.defaults.withCredentials = true
     const getCsrfToken = async () => {
@@ -29,7 +30,7 @@ function AppRoutes() {
           <Route path="/" element={<Auth />} />
           <Route path="/home" element={<Home />} />
           <Route path="diary" element={<Diary />} />
-          <Route path="music" element={<MusicLibrary />} />
+          <Route path="music" element={<Diaries />} />
           <Route path="mypage" element={<MyPage />} />
         </Route>
       </Routes>

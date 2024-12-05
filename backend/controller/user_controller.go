@@ -58,7 +58,7 @@ func (uc *UserController) Login(c echo.Context) error {
 	cookie.Path = "/"                               // パス
 	cookie.Domain = os.Getenv("API_DOMAIN")         // ドメイン
 	cookie.Secure = true
-	cookie.HttpOnly = true                  // JavaScriptからのアクセスを禁止
+	cookie.HttpOnly = false                 // JavaScriptからのアクセスを禁止
 	cookie.SameSite = http.SameSiteNoneMode // SameSite属性
 	c.SetCookie(cookie)                     // Cookieの設定
 	return c.NoContent(http.StatusOK)
@@ -72,7 +72,7 @@ func (uc *UserController) Logout(c echo.Context) error {
 	cookie.Path = "/"                       // パス
 	cookie.Domain = os.Getenv("API_DOMAIN") // ドメイン
 	cookie.Secure = true
-	cookie.HttpOnly = true                  // JavaScriptからのアクセスを禁止
+	cookie.HttpOnly = false                 // JavaScriptからのアクセスを禁止
 	cookie.SameSite = http.SameSiteNoneMode // SameSite属性
 	c.SetCookie(cookie)                     // Cookieの設定
 	return c.NoContent(http.StatusOK)
