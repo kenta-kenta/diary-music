@@ -1,4 +1,4 @@
-import { Create, Person } from '@mui/icons-material'
+import { Create, History, LibraryBooks, Person } from '@mui/icons-material'
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useState } from 'react'
@@ -41,7 +41,7 @@ export default function Header(props: any) {
                       </span>
                     </li>
                     <li className="flex items-center text-orange-600 hover:text-orange-700">
-                      <LibraryMusicIcon className="h-5 w-5 mr-2" />
+                      <LibraryBooks className="h-5 w-5 mr-2" />
                       <span>
                         <Link to="/diaries">今までの日記</Link>
                       </span>
@@ -81,7 +81,7 @@ export default function Header(props: any) {
                 </span>
               </li>
               <li className="flex items-center text-orange-600 hover:text-orange-700">
-                <LibraryMusicIcon className="h-5 w-5 mr-2" />
+                <LibraryBooks className="h-5 w-5 mr-2" />
                 <span>
                   <Link
                     to="/diaries"

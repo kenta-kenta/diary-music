@@ -1,13 +1,10 @@
-import { useQueryDiaries } from '../hooks/useQueryDiaries'
 import { useMutateDiary } from '../hooks/useMutateDiary'
 import useStore from '../store'
 import { FormEvent } from 'react'
-import { DiaryItem } from '../component/DiaryItem'
 
 const Diary = () => {
   const { editedDiary } = useStore()
   const updateDiary = useStore((state) => state.updateEditedDiary)
-  const { data, isLoading } = useQueryDiaries()
   const { createDiaryMutation, updateDiaryMutation } = useMutateDiary()
 
   const submitDiaryHandler = (e: FormEvent<HTMLFormElement>) => {
@@ -22,7 +19,7 @@ const Diary = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-16 min-h-screen">
+    <div className="container mx-auto px-4 py-20 min-h-screen">
       <div className="max-w-2xl mx-auto">
         <form
           onSubmit={submitDiaryHandler}
@@ -41,27 +38,28 @@ const Diary = () => {
             type="submit"
             disabled={!editedDiary.content}
           >
-            {editedDiary.id === 0 ? 'Create' : 'Update'}
+            作成する
           </button>
         </form>
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : data && data.length > 0 ? (
-          <ul className="mt-4 space-y-2">
-            {data.map((diary) => (
-              <DiaryItem
-                key={diary.id}
-                id={diary.id}
-                content={diary.content}
-                created_at={diary.created_at}
-              />
-            ))}
+        <div className="bg-orange-50 p-6 rounded-lg shadow-sm">
+          <h2 className="text-lg font-semibold text-orange-600 mb-4">
+            書き方のヒント
+          </h2>
+          <ul className="space-y-3 text-gray-700">
+            <li className="flex items-center space-x-2">
+              <span className="text-orange-500">1.</span>
+              <p>実際にあったことを書いてみよう</p>
+            </li>
+            <li className="flex items-center space-x-2">
+              <span className="text-orange-500">2.</span>
+              <p>そのことから感じた気持ちを書いてみよう</p>
+            </li>
+            <li className="flex items-center space-x-2">
+              <span className="text-orange-500">3.</span>
+              <p>その日の天気を書いてみよう</p>
+            </li>
           </ul>
-        ) : (
-          <p className="text-center text-gray-500 my-4">
-            日記のデータがありません
-          </p>
-        )}
+        </div>
       </div>
     </div>
   )

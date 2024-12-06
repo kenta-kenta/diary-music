@@ -41,7 +41,7 @@ const DiaryItemMemo: FC<Omit<Diary, 'updated_at'>> = ({
     <>
       <li className="my-3">
         <Card className="p-3">
-          <span>{content}</span>
+          <div className="whitespace-pre-wrap break-words">{content}</div>
           <div className="flex justify-end space-x-2">
             <PencilIcon
               className="w-5 h-5 text-orange-500 cursor-pointer hover:text-orange-600"
