@@ -1,85 +1,90 @@
 import React, { FormEvent, useState } from 'react'
 import { useMutateAuth } from '../hooks/useMutateAuth'
-import { Sync, VerifiedUser } from '@mui/icons-material'
 
 export const Auth = () => {
   const [email, setEmail] = useState('')
   const [pw, setPw] = useState('')
-  const [username, setUsername] = useState('')
   const [isLogin, setIsLogin] = useState(true)
   const { loginMutation, registerMutation } = useMutateAuth()
 
   const submitAuthHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (isLogin) {
-      loginMutation.mutate({ email: email, user_name: username, password: pw })
+      loginMutation.mutate({ email: email, password: pw })
     } else {
       await registerMutation
-        .mutateAsync({ email: email, user_name: username, password: pw })
+        .mutateAsync({ email: email, password: pw })
         .then(() =>
           loginMutation.mutate({
             email: email,
-            user_name: username,
             password: pw,
           })
         )
     }
   }
+
   return (
-    <div className="flex justify-center items-center flex-col min-h-screen text-gray-600 font-mono">
-      <div>
-        <VerifiedUser className="w-10 inline-block text-orange-600" />
-        <span className="text-gray-700 text-3xl">
-          Todo app by React/Go(echo)
-        </span>
+    <div className="min-h-screen bg-orange-50/30 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg">
+        <div>
+          <h2 className="text-center text-3xl font-bold text-orange-600">
+            {isLogin ? 'ログイン' : '新規登録'}
+          </h2>
+        </div>
+        <form className="mt-8 space-y-6" onSubmit={submitAuthHandler}>
+          <div className="rounded-md shadow-sm space-y-4">
+            <div>
+              <label htmlFor="email" className="sr-only">
+                メールアドレス
+              </label>
+              <input
+                id="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                placeholder="メールアドレス"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="sr-only">
+                パスワード
+              </label>
+              <input
+                id="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                placeholder="パスワード"
+                value={pw}
+                onChange={(e) => setPw(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col space-y-4">
+            <button
+              type="submit"
+              disabled={!email || !pw}
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {isLogin ? 'ログイン' : '新規登録'}
+            </button>
+            <div className="text-sm text-center">
+              <button
+                type="button"
+                onClick={() => setIsLogin(!isLogin)}
+                className="font-medium text-orange-600 hover:text-orange-500"
+              >
+                {isLogin ? '新規登録はこちら' : 'ログインはこちら'}
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-      <h2 className="my-6">{isLogin ? 'Login' : 'Create a new account'}</h2>
-      <form onSubmit={submitAuthHandler}>
-        <div>
-          <input
-            className="mb-3"
-            name="email"
-            type="email"
-            autoFocus
-            placeholder="Email address"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-          />
-        </div>
-        <div>
-          <input
-            className="mb-3"
-            name="user_name"
-            type="text"
-            placeholder="User name"
-            onChange={(e) => setUsername(e.target.value)}
-            value={username}
-          />
-        </div>
-        <div>
-          <input
-            className="mb-3"
-            name="password"
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPw(e.target.value)}
-            value={pw}
-          />
-        </div>
-        <div className="flex justify-center">
-          <button
-            type="submit"
-            disabled={!email || !pw}
-            className="my-3 px-3 py-1 bg-orange-600 text-white rounded hover:bg-orange-700"
-          >
-            {isLogin ? 'Login' : 'Sign up'}
-          </button>
-        </div>
-      </form>
-      <Sync
-        onClick={() => setIsLogin(!isLogin)}
-        className="w-5 cursor-pointer text-orange-600"
-      />
     </div>
   )
 }

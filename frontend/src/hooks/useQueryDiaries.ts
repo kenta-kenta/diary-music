@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
-import { Diary } from '../types'
+import { User, Diary } from '../types'
 import { useError } from './useError'
 
 export const useQueryDiaries = () => {
@@ -25,3 +25,16 @@ export const useQueryDiaries = () => {
         },
     })
 }
+
+export const useQueryUser = () => {
+    return useQuery<User>({
+      queryKey: ['user'],
+      queryFn: async () => {
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_API_URL}/user`,
+          { withCredentials: true }
+        )
+        return data
+      }
+    })
+  }

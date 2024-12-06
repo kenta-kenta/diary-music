@@ -5,12 +5,17 @@ export type Diary = {
     updated_at: string;
 }
 
+export type User = {
+    id: number;
+    email: string;
+    user_name: string;
+}
+
 export type CsrfToken = {
     csrf_token: string;
 }
 
 export type Credential = {
     email: string;
-    user_name: string;
     password: string;
 }

@@ -1,27 +1,28 @@
-import { Link } from 'react-router-dom'
+import { DiaryIcon } from '../component/DiaryIcon'
+import { DiariesIcon } from '../component/DiariesIcon'
+import { MyPageIcon } from '../component/MyPageIcon'
 
 const Home = () => {
   return (
-    <div className="container mx-auto px-4 mt-16">
-      <h1 className="text-4xl font-bold mb-4">ホームページ</h1>
-      <p className="text-lg mb-6">こちらはホームページです。</p>
-      <ul className="space-y-4">
-        <li>
-          <Link to="/diary" className="text-blue-500 hover:underline">
-            日記を書くページへ
-          </Link>
-        </li>
-        <li>
-          <Link to="/diaries" className="text-blue-500 hover:underline">
-            今までの日記一覧へ
-          </Link>
-        </li>
-        <li>
-          <Link to="/mypage" className="text-blue-500 hover:underline">
-            マイページへ
-          </Link>
-        </li>
-      </ul>
+    <div className="min-h-screen bg-orange-50/30">
+      <div className="container mx-auto px-4 pt-24 pb-16">
+        {/* ヘッダーセクション */}
+        <div className="mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold text-center text-orange-500 mb-6">
+            ようこそ
+          </h1>
+          <p className="text-lg md:text-xl text-center text-gray-600">
+            毎日の思い出を日記に残しましょう
+          </p>
+        </div>
+
+        {/* アイコングリッド */}
+        <div className="flex flex-col md:flex-row justify-center items-center gap-8 px-2 max-w-7xl mx-auto">
+          <DiaryIcon />
+          <DiariesIcon />
+          <MyPageIcon />
+        </div>
+      </div>
     </div>
   )
 }

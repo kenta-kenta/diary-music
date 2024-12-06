@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Header from './Header'
 import Footer from './Footer'
 
@@ -13,7 +13,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
     <div>
       <Header isLogin={true} />
-      <main>{children}</main>
+      <main className="min-h-screen">{children}</main>
       <Footer />
     </div>
   )
