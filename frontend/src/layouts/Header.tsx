@@ -43,7 +43,7 @@ export default function Header(props: any) {
                     <li className="flex items-center text-orange-600 hover:text-orange-700">
                       <LibraryMusicIcon className="h-5 w-5 mr-2" />
                       <span>
-                        <Link to="/music">音楽ライブラリ</Link>
+                        <Link to="/diaries">今までの日記</Link>
                       </span>
                     </li>
                     <li className="flex items-center text-orange-600 hover:text-orange-700">
@@ -83,8 +83,11 @@ export default function Header(props: any) {
               <li className="flex items-center text-orange-600 hover:text-orange-700">
                 <LibraryMusicIcon className="h-5 w-5 mr-2" />
                 <span>
-                  <Link to="/music" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                    音楽ライブラリ
+                  <Link
+                    to="/diaries"
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  >
+                    今までの日記
                   </Link>
                 </span>
               </li>

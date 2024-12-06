@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   return (
@@ -12,8 +12,8 @@ const Home = () => {
           </Link>
         </li>
         <li>
-          <Link to="/music" className="text-blue-500 hover:underline">
-            音楽を見るページへ
+          <Link to="/diaries" className="text-blue-500 hover:underline">
+            今までの日記一覧へ
           </Link>
         </li>
         <li>
@@ -23,7 +23,7 @@ const Home = () => {
         </li>
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

@@ -8,8 +8,15 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PW}
       POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # データの永続化
     restart: always
     networks:
       - lesson
+
+volumes:
+  postgres_data:  # 永続化用のボリュームを定義
+    driver: local
+
 networks:
   lesson:

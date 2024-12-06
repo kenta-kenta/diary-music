@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -7,8 +7,8 @@ const Footer = () => {
         <Link to="/diary" className="hover:text-orange-800 transition-colors">
           日記を書く
         </Link>
-        <Link to="/music" className="hover:text-orange-800 transition-colors">
-          音楽ライブラリ
+        <Link to="/diaries" className="hover:text-orange-800 transition-colors">
+          今までの日記
         </Link>
         <Link to="/mypage" className="hover:text-orange-800 transition-colors">
           マイページ
@@ -16,7 +16,7 @@ const Footer = () => {
       </div>
       <p>&copy; 2024 日記アプリ</p>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
