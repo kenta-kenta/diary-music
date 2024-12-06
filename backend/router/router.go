@@ -28,19 +28,25 @@ func NewRouter(uc controller.IUserController, dc controller.IDiaryController) *e
 		// CookieSameSite: http.SameSiteDefaultMode, // CookieのSameSite属性
 		// CookieMaxAge: 60,
 	}))
+
 	e.POST("/signup", uc.SignUp)
 	e.POST("/login", uc.Login)
 	e.POST("/logout", uc.Logout)
 	e.GET("/csrf", uc.CsrfToken)
-	t := e.Group("/diaries")
-	t.Use(echojwt.WithConfig(echojwt.Config{
-		SigningKey:  []byte(os.Getenv("SECRET")), // Secret key
-		TokenLookup: "cookie:token",              // Where to look for the token
+
+	auth := e.Group("")
+	auth.Use(echojwt.WithConfig(echojwt.Config{
+		SigningKey:  []byte(os.Getenv("SECRET")),
+		TokenLookup: "cookie:token",
 	}))
-	t.GET("", dc.GetAllDiaries)
-	t.GET("/:diaryId", dc.GetDiaryById)
-	t.POST("", dc.CreateDiary)
-	t.PUT("/:diaryId", dc.UpdateDiary)
-	t.DELETE("/:diaryId", dc.DeleteDiary)
+	auth.GET("/user", uc.GetUser)
+
+	diaries := auth.Group("/diaries")
+	diaries.GET("", dc.GetAllDiaries)
+	diaries.GET("/:diaryId", dc.GetDiaryById)
+	diaries.POST("", dc.CreateDiary)
+	diaries.PUT("/:diaryId", dc.UpdateDiary)
+	diaries.DELETE("/:diaryId", dc.DeleteDiary)
+
 	return e
 }
