@@ -32,11 +32,11 @@ func (du *diaryController) GetAllDiaries(c echo.Context) error {
 	claims := user.Claims.(jwt.MapClaims)
 	userId := claims["user_id"]
 
-	taskRes, err := du.du.GetAllDiaries(uint(userId.(float64)))
+	diaries, err := du.du.GetAllDiaries(uint(userId.(float64)))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
-	return c.JSON(http.StatusOK, taskRes)
+	return c.JSON(http.StatusOK, diaries)
 }
 
 func (du *diaryController) GetDiaryById(c echo.Context) error {
@@ -46,12 +46,12 @@ func (du *diaryController) GetDiaryById(c echo.Context) error {
 	userId := claims["user_id"]
 
 	id := c.Param("diaryId")
-	taskId, _ := strconv.Atoi(id)
-	taskRes, err := du.du.GetDiaryById(uint(userId.(float64)), uint(taskId))
+	diaryId, _ := strconv.Atoi(id)
+	diaries, err := du.du.GetDiaryById(uint(userId.(float64)), uint(diaryId))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
-	return c.JSON(http.StatusOK, taskRes)
+	return c.JSON(http.StatusOK, diaries)
 }
 
 func (du *diaryController) CreateDiary(c echo.Context) error {

@@ -30,7 +30,7 @@ function AppRoutes() {
           <Route path="/" element={<Auth />} />
           <Route path="/home" element={<Home />} />
           <Route path="diary" element={<Diary />} />
-          <Route path="music" element={<Diaries />} />
+          <Route path="diaries" element={<Diaries />} />
           <Route path="mypage" element={<MyPage />} />
         </Route>
       </Routes>

@@ -14,6 +14,7 @@ import (
 type IUserUsecase interface {
 	SignUp(user model.User) (model.UserResponse, error)
 	Login(user model.User) (string, error)
+	GetUserById(user *model.User, userId uint) error
 }
 
 type userUsecase struct {
@@ -41,8 +42,9 @@ func (uu *userUsecase) SignUp(user model.User) (model.UserResponse, error) {
 		return model.UserResponse{}, err
 	}
 	resUser := model.UserResponse{
-		ID:    newUser.ID,
-		Email: newUser.Email,
+		ID:       newUser.ID,
+		Email:    newUser.Email,
+		UserName: newUser.UserName,
 	}
 	return resUser, nil
 }
@@ -73,4 +75,12 @@ func (uu *userUsecase) Login(user model.User) (string, error) {
 		return "", err
 	}
 	return tokenString, nil
+}
+
+func (uu *userUsecase) GetUserById(user *model.User, userId uint) error {
+	// リポジトリ層のメソッドを呼び出し
+	if err := uu.ur.GetUserById(user, userId); err != nil {
+		return err
+	}
+	return nil
 }

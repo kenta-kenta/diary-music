@@ -1,5 +1,4 @@
-import { Create, Person } from '@mui/icons-material'
-import LibraryMusicIcon from '@mui/icons-material/LibraryMusic'
+import { Create, LibraryBooks, Person } from '@mui/icons-material'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useState } from 'react'
 import Modal from 'react-modal'
@@ -22,7 +21,7 @@ export default function Header(props: any) {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-4">
             <h1 className="text-xl font-semibold text-orange-600 hover:text-orange-700">
-              <Link to="/">日記アプリ</Link>
+              <Link to="/home">日記アプリ</Link>
             </h1>
             {props.isLogin && (
               <>
@@ -35,22 +34,22 @@ export default function Header(props: any) {
                 <nav className="hidden md:block">
                   <ul className="flex flex-row space-x-6">
                     <li className="flex items-center text-orange-600 hover:text-orange-700">
-                      <Create className="h-5 w-5 mr-2" />
-                      <span>
-                        <Link to="/diary">日記を書く</Link>
-                      </span>
+                      <Link to="/diary">
+                        <Create className="h-5 w-5 mr-2" />
+                        <span>日記を書く</span>
+                      </Link>
                     </li>
                     <li className="flex items-center text-orange-600 hover:text-orange-700">
-                      <LibraryMusicIcon className="h-5 w-5 mr-2" />
-                      <span>
-                        <Link to="/music">音楽ライブラリ</Link>
-                      </span>
+                      <Link to="/diaries">
+                        <LibraryBooks className="h-5 w-5 mr-2" />
+                        <span>今までの日記</span>
+                      </Link>
                     </li>
                     <li className="flex items-center text-orange-600 hover:text-orange-700">
-                      <Person className="h-5 w-5 mr-2" />
-                      <span>
-                        <Link to="/mypage">マイページ</Link>
-                      </span>
+                      <Link to="/mypage">
+                        <Person className="h-5 w-5 mr-2" />
+                        <span>マイページ</span>
+                      </Link>
                     </li>
                     <li className="flex items-center text-orange-600 hover:text-orange-700">
                       <ArrowRightOnRectangleIcon
@@ -73,28 +72,22 @@ export default function Header(props: any) {
           >
             <ul className="flex flex-col space-y-4 mt-10">
               <li className="flex items-center text-orange-600 hover:text-orange-700">
-                <Create className="h-5 w-5 mr-2" />
-                <span>
-                  <Link to="/diary" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                    日記を書く
-                  </Link>
-                </span>
+                <Link to="/diary" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                  <Create className="h-5 w-5 mr-2" />
+                  <span>日記を書く</span>
+                </Link>
               </li>
               <li className="flex items-center text-orange-600 hover:text-orange-700">
-                <LibraryMusicIcon className="h-5 w-5 mr-2" />
-                <span>
-                  <Link to="/music" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                    音楽ライブラリ
-                  </Link>
-                </span>
+                <Link to="/diaries" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                  <LibraryBooks className="h-5 w-5 mr-2" />
+                  <span>今までの日記</span>
+                </Link>
               </li>
               <li className="flex items-center text-orange-600 hover:text-orange-700">
-                <Person className="h-5 w-5 mr-2" />
-                <span>
-                  <Link to="/mypage" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                    マイページ
-                  </Link>
-                </span>
+                <Link to="/mypage" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                  <Person className="h-5 w-5 mr-2" />
+                  <span>マイページ</span>
+                </Link>
               </li>
               <li className="flex items-center text-orange-600 hover:text-orange-700">
                 <ArrowRightOnRectangleIcon
