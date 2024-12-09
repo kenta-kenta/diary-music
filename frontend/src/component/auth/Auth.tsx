@@ -1,28 +1,24 @@
-import React, { FormEvent, useState } from 'react'
-import { useMutateAuth } from '../../hooks/useMutateAuth'
+import React, { FC, FormEvent } from 'react'
 
-export const Auth = () => {
-  const [email, setEmail] = useState('')
-  const [pw, setPw] = useState('')
-  const [isLogin, setIsLogin] = useState(true)
-  const { loginMutation, registerMutation } = useMutateAuth()
+type AuthFormProps = {
+  email: string
+  setEmail: (email: string) => void
+  pw: string
+  setPw: (pw: string) => void
+  isLogin: boolean
+  setIsLogin: (isLogin: boolean) => void
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void
+}
 
-  const submitAuthHandler = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (isLogin) {
-      loginMutation.mutate({ email: email, password: pw })
-    } else {
-      await registerMutation
-        .mutateAsync({ email: email, password: pw })
-        .then(() =>
-          loginMutation.mutate({
-            email: email,
-            password: pw,
-          })
-        )
-    }
-  }
-
+export const AuthForm: FC<AuthFormProps> = ({
+  email,
+  setEmail,
+  pw,
+  setPw,
+  isLogin,
+  setIsLogin,
+  onSubmit: submitAuthHandler,
+}) => {
   return (
     <div className="min-h-screen bg-orange-50/30 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg">
