@@ -1,5 +1,5 @@
 import { useQueryDiaries } from '../hooks/useQueryDiaries'
-import { DiaryItem } from '../component/DiaryItem'
+import { DiaryItem } from '../component/diary/DiaryItem'
 
 const Diaries = () => {
   const { data, isLoading } = useQueryDiaries()

@@ -6,7 +6,7 @@ import {
   Typography,
   Avatar,
 } from '@mui/material'
-import { useQueryUser } from '../hooks/useQueryDiaries'
+import { useQueryUser } from '../../hooks/useQueryDiaries'
 
 const Profile: React.FC = () => {
   const { data: user, isLoading } = useQueryUser()

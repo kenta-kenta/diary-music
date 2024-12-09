@@ -1,4 +1,4 @@
-import Music from "../component/MusicLibrary";
+import Music from '../component/music/MusicLibrary'
 
 const MusicLibrary = () => {
   return (
@@ -7,7 +7,7 @@ const MusicLibrary = () => {
       <Music id={2} />
       <Music id={3} />
     </div>
-  );
-};
+  )
+}
 
-export default MusicLibrary;
+export default MusicLibrary

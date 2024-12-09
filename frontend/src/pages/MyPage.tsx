@@ -1,6 +1,6 @@
-import Profile from '../component/Profile'
-import Activity from '../component/Activity'
-import Setting from '../component/Setting'
+import Profile from '../component/mypage/Profile'
+import Activity from '../component/mypage/Activity'
+import Setting from '../component/mypage/Setting'
 
 export default function MyPage() {
   return (
