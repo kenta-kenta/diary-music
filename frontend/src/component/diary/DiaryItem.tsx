@@ -1,9 +1,9 @@
 import { FC, memo, useState } from 'react'
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid'
-import { useMutateDiary } from '../hooks/useMutateDiary'
-import { Diary } from '../types'
+import { useMutateDiary } from '../../hooks/useMutateDiary'
+import { Diary } from '../../types'
 import { Modal, Box, Card } from '@mui/material'
-import useStore from '../store'
+import useStore from '../../store'
 
 const DiaryItemMemo: FC<Omit<Diary, 'updated_at'>> = ({
   id,

@@ -1,6 +1,6 @@
-import { DiaryIcon } from '../component/DiaryIcon'
-import { DiariesIcon } from '../component/DiariesIcon'
-import { MyPageIcon } from '../component/MyPageIcon'
+import { DiaryIcon } from '../component/home/DiaryIcon'
+import { DiariesIcon } from '../component/home/DiariesIcon'
+import { MyPageIcon } from '../component/home/MyPageIcon'
 
 const Home = () => {
   return (

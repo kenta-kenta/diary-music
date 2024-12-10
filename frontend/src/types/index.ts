@@ -5,6 +5,11 @@ export type Diary = {
     updated_at: string;
 }
 
+export type EditedDiary = {
+    id: number;
+    content: string;
+}
+
 export type User = {
     id: number;
     email: string;
