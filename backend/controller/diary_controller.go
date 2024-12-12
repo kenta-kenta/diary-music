@@ -26,20 +26,31 @@ func NewDiaryController(du usecase.IDiaryUsecase) IDiaryController {
 	return &diaryController{du}
 }
 
-func (du *diaryController) GetAllDiaries(c echo.Context) error {
+func (dc *diaryController) GetAllDiaries(c echo.Context) error {
 	// Get user ID from JWT
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
-	userId := claims["user_id"]
-
-	diaries, err := du.du.GetAllDiaries(uint(userId.(float64)))
+	userId := uint(claims["user_id"].(float64))
+	// Pageを取得
+	page, _ := strconv.Atoi(c.QueryParam("page"))
+	if page < 1 {
+		page = 1
+	}
+	// PageSizeを取得
+	pageSize, _ := strconv.Atoi(c.QueryParam("page_size"))
+	if pageSize < 1 || pageSize > 50 {
+		pageSize = 10
+	}
+	// GetAllDiariesメソッドを呼び出し
+	response, err := dc.du.GetAllDiaries(userId, page, pageSize)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
-	return c.JSON(http.StatusOK, diaries)
+
+	return c.JSON(http.StatusOK, response)
 }
 
-func (du *diaryController) GetDiaryById(c echo.Context) error {
+func (dc *diaryController) GetDiaryById(c echo.Context) error {
 	// Get user ID from JWT
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
@@ -47,14 +58,14 @@ func (du *diaryController) GetDiaryById(c echo.Context) error {
 
 	id := c.Param("diaryId")
 	diaryId, _ := strconv.Atoi(id)
-	diaries, err := du.du.GetDiaryById(uint(userId.(float64)), uint(diaryId))
+	diaries, err := dc.du.GetDiaryById(uint(userId.(float64)), uint(diaryId))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 	return c.JSON(http.StatusOK, diaries)
 }
 
-func (du *diaryController) CreateDiary(c echo.Context) error {
+func (dc *diaryController) CreateDiary(c echo.Context) error {
 	// Get user ID from JWT
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
@@ -65,14 +76,14 @@ func (du *diaryController) CreateDiary(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
 	diary.UserId = uint(userId.(float64))
-	diaryRes, err := du.du.CreateDiary(diary)
+	diaryRes, err := dc.du.CreateDiary(diary)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 	return c.JSON(http.StatusOK, diaryRes)
 }
 
-func (du *diaryController) UpdateDiary(c echo.Context) error {
+func (dc *diaryController) UpdateDiary(c echo.Context) error {
 	// Get user ID from JWT
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
@@ -84,14 +95,14 @@ func (du *diaryController) UpdateDiary(c echo.Context) error {
 	if err := c.Bind(&diary); err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
-	diaryRes, err := du.du.UpdateDiary(uint(userId.(float64)), uint(taskId), diary)
+	diaryRes, err := dc.du.UpdateDiary(uint(userId.(float64)), uint(taskId), diary)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 	return c.JSON(http.StatusOK, diaryRes)
 }
 
-func (du *diaryController) DeleteDiary(c echo.Context) error {
+func (dc *diaryController) DeleteDiary(c echo.Context) error {
 	// Get user ID from JWT
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
@@ -99,7 +110,7 @@ func (du *diaryController) DeleteDiary(c echo.Context) error {
 
 	id := c.Param("diaryId")
 	taskId, _ := strconv.Atoi(id)
-	err := du.du.DeleteDiary(uint(userId.(float64)), uint(taskId))
+	err := dc.du.DeleteDiary(uint(userId.(float64)), uint(taskId))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}

@@ -7,7 +7,7 @@ import (
 )
 
 type IDiaryUsecase interface {
-	GetAllDiaries(userId uint) ([]model.DiaryResponse, error)
+	GetAllDiaries(userId uint, page int, pageSize int) (*model.PaginationResponse, error)
 	GetDiaryById(userId uint, diaryId uint) (model.DiaryResponse, error)
 	CreateDiary(diary model.Diary) (model.DiaryResponse, error)
 	UpdateDiary(userId uint, diaryId uint, diary model.Diary) (model.DiaryResponse, error)
@@ -23,26 +23,19 @@ func NewDiaryUsecase(dr repository.IDiaryRepository, dv validator.IDiaryValidato
 	return &diaryUsecase{dr, dv}
 }
 
-func (dr *diaryUsecase) GetAllDiaries(userId uint) ([]model.DiaryResponse, error) {
-	diaries := []model.Diary{}
-	if err := dr.dr.GetAllDiaries(&diaries, userId); err != nil {
-		return nil, err
+func (du *diaryUsecase) GetAllDiaries(userId uint, page, pageSize int) (*model.PaginationResponse, error) {
+	// PaginationQueryを作成
+	query := &model.PaginationQuery{
+		Page:     page,
+		PageSize: pageSize,
 	}
-	resDiaries := []model.DiaryResponse{}
-	for _, diary := range diaries {
-		resDiaries = append(resDiaries, model.DiaryResponse{
-			ID:        diary.ID,
-			Content:   diary.Content,
-			CreatedAt: diary.CreatedAt,
-			UpdatedAt: diary.UpdatedAt,
-		})
-	}
-	return resDiaries, nil
+
+	return du.dr.GetAllDiaries(query, userId)
 }
 
-func (dr *diaryUsecase) GetDiaryById(userId uint, diaryId uint) (model.DiaryResponse, error) {
+func (du *diaryUsecase) GetDiaryById(userId uint, diaryId uint) (model.DiaryResponse, error) {
 	diary := model.Diary{}
-	if err := dr.dr.GetDiaryById(&diary, userId, diaryId); err != nil {
+	if err := du.dr.GetDiaryById(&diary, userId, diaryId); err != nil {
 		return model.DiaryResponse{}, err
 	}
 	resDiary := model.DiaryResponse{
@@ -54,13 +47,13 @@ func (dr *diaryUsecase) GetDiaryById(userId uint, diaryId uint) (model.DiaryResp
 	return resDiary, nil
 }
 
-func (dr *diaryUsecase) CreateDiary(diary model.Diary) (model.DiaryResponse, error) {
+func (du *diaryUsecase) CreateDiary(diary model.Diary) (model.DiaryResponse, error) {
 	// Validate the diary
-	if err := dr.dv.DiaryValidate(diary); err != nil {
+	if err := du.dv.DiaryValidate(diary); err != nil {
 		return model.DiaryResponse{}, err
 	}
 	// Create the diary
-	if err := dr.dr.CreateDiary(&diary); err != nil {
+	if err := du.dr.CreateDiary(&diary); err != nil {
 		return model.DiaryResponse{}, err
 	}
 	resDiary := model.DiaryResponse{
@@ -72,12 +65,12 @@ func (dr *diaryUsecase) CreateDiary(diary model.Diary) (model.DiaryResponse, err
 	return resDiary, nil
 }
 
-func (dr *diaryUsecase) UpdateDiary(userId uint, diaryId uint, diary model.Diary) (model.DiaryResponse, error) {
-	if err := dr.dv.DiaryValidate(diary); err != nil {
+func (du *diaryUsecase) UpdateDiary(userId uint, diaryId uint, diary model.Diary) (model.DiaryResponse, error) {
+	if err := du.dv.DiaryValidate(diary); err != nil {
 		return model.DiaryResponse{}, err
 	}
 
-	if err := dr.dr.UpdateDiary(&diary, userId, diaryId); err != nil {
+	if err := du.dr.UpdateDiary(&diary, userId, diaryId); err != nil {
 		return model.DiaryResponse{}, err
 	}
 	resDiary := model.DiaryResponse{
