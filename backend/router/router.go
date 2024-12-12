@@ -42,7 +42,7 @@ func NewRouter(uc controller.IUserController, dc controller.IDiaryController) *e
 	auth.GET("/user", uc.GetUser)
 
 	diaries := auth.Group("/diaries")
-	diaries.GET("", dc.GetAllDiaries)
+	diaries.GET("", dc.GetAllDiaries) // クエリパラメータが必要(?page=1&page_size=10)
 	diaries.GET("/:diaryId", dc.GetDiaryById)
 	diaries.POST("", dc.CreateDiary)
 	diaries.PUT("/:diaryId", dc.UpdateDiary)

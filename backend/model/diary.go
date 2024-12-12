@@ -17,3 +17,17 @@ type DiaryResponse struct {
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
+
+// PaginationQueryはページネーションのクエリを表します。
+type PaginationQuery struct {
+	Page     int
+	PageSize int
+}
+
+type PaginationResponse struct {
+	Data       interface{} `json:"data"`
+	TotalItems int64       `json:"total_items"`
+	Page       int         `json:"page"`
+	PageSize   int         `json:"page_size"`
+	TotalPages int         `json:"total_pages"`
+}
