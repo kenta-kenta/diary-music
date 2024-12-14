@@ -24,7 +24,6 @@ export const Auth = () => {
     }
   }
   return (
-    <div className="min-h-screen bg-orange-50/30 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <AuthForm
         email={email}
         setEmail={setEmail}
@@ -34,6 +33,5 @@ export const Auth = () => {
         setIsLogin={setIsLogin}
         onSubmit={submitAuthHandler}
       />
-    </div>
   )
 }
