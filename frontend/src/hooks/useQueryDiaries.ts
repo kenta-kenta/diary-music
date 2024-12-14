@@ -1,19 +1,21 @@
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
-import { User, Diary } from '../types'
+import { PaginatedResponse, User } from '../types'
 import { useError } from './useError'
 
-export const useQueryDiaries = () => {
+export const useQueryDiaries = (page: number = 1) => {
     const { switchErrorHandling } = useError()
+    
     const getDiaries = async () => {
-        const { data } = await axios.get<Diary[]>(
-            `${import.meta.env.VITE_API_URL}/diaries`,
+        const { data } = await axios.get<PaginatedResponse>(
+            `${import.meta.env.VITE_API_URL}/diaries?page=${page}&page_size=10`,
             { withCredentials: true }
         )
         return data
     }
-    return useQuery<Diary[], Error>({
-        queryKey: ['diaries'],
+    
+    return useQuery<PaginatedResponse, Error>({
+        queryKey: ['diaries', page],
         queryFn: getDiaries,
         staleTime: Infinity,
         onError: (err: any) => {
