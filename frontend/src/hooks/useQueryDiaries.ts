@@ -17,7 +17,8 @@ export const useQueryDiaries = (page: number = 1) => {
     return useQuery<PaginatedResponse, Error>({
         queryKey: ['diaries', page],
         queryFn: getDiaries,
-        staleTime: Infinity,
+        staleTime: 0,
+        refetchOnMount: true,
         onError: (err: any) => {
             if (err.response.data.message) {
                 switchErrorHandling(err.response.data.message)
