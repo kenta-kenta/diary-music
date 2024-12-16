@@ -15,6 +15,7 @@ type IDiaryRepository interface {
 	CreateDiary(diary *model.Diary) error
 	UpdateDiary(diary *model.Diary, userId uint, diaryId uint) error
 	DeleteDiary(userId uint, diaryId uint) error
+	GetDiaryDates(userId uint, year, month int) ([]model.DiaryDateCount, error)
 }
 
 type diaryRepository struct {
@@ -56,6 +57,25 @@ func (dr *diaryRepository) GetDiaryById(diary *model.Diary, userId uint, diaryId
 		return err
 	}
 	return nil
+}
+
+func (dr *diaryRepository) GetDiaryDates(userId uint, year, month int) ([]model.DiaryDateCount, error) {
+	var results []model.DiaryDateCount
+
+	err := dr.db.Model(&model.Diary{}).
+		Select("DATE(created_at) as date, COUNT(*) as count").
+		Where("user_id = ? AND EXTRACT(YEAR FROM created_at) = ? AND EXTRACT(MONTH FROM created_at) = ?",
+			userId, year, month).
+		Group("DATE(created_at)").
+		Order("date").
+		Scan(&results).
+		Error
+
+	if err != nil {
+		return nil, fmt.Errorf("日記の日付と件数の取得に失敗: %w", err)
+	}
+
+	return results, nil
 }
 
 func (dr *diaryRepository) CreateDiary(diary *model.Diary) error {

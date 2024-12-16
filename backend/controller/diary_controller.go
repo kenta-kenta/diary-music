@@ -16,6 +16,7 @@ type IDiaryController interface {
 	CreateDiary(c echo.Context) error
 	UpdateDiary(c echo.Context) error
 	DeleteDiary(c echo.Context) error
+	GetDiaryDates(c echo.Context) error
 }
 
 type diaryController struct {
@@ -63,6 +64,21 @@ func (dc *diaryController) GetDiaryById(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 	return c.JSON(http.StatusOK, diaries)
+}
+
+func (dc *diaryController) GetDiaryDates(c echo.Context) error {
+	user := c.Get("user").(*jwt.Token)
+	claims := user.Claims.(jwt.MapClaims)
+	userId := uint(claims["user_id"].(float64))
+
+	year := c.QueryParam("year")
+	month := c.QueryParam("month")
+
+	dates, err := dc.du.GetDiaryDates(userId, year, month)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+	return c.JSON(http.StatusOK, dates)
 }
 
 func (dc *diaryController) CreateDiary(c echo.Context) error {
