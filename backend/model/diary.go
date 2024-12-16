@@ -18,6 +18,23 @@ type DiaryResponse struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
+type DiaryDate struct {
+	Date time.Time `json:"date"`
+}
+
+type DiaryDateResponse struct {
+	Dates []time.Time `json:"dates"`
+}
+
+type DiaryDateCount struct {
+	Date  time.Time `json:"date"`
+	Count int       `json:"count"`
+}
+
+type DiaryDateCountResponse struct {
+	Dates []DiaryDateCount `json:"dates"`
+}
+
 // PaginationQueryはページネーションのクエリを表します。
 type PaginationQuery struct {
 	Page     int

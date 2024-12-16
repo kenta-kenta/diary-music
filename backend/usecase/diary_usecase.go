@@ -1,6 +1,8 @@
 package usecase
 
 import (
+	"strconv"
+
 	"github.com/kenta-kenta/diary-music/model"
 	"github.com/kenta-kenta/diary-music/repository"
 	"github.com/kenta-kenta/diary-music/validator"
@@ -12,6 +14,7 @@ type IDiaryUsecase interface {
 	CreateDiary(diary model.Diary) (model.DiaryResponse, error)
 	UpdateDiary(userId uint, diaryId uint, diary model.Diary) (model.DiaryResponse, error)
 	DeleteDiary(userId uint, diaryId uint) error
+	GetDiaryDates(userId uint, year, month string) (*model.DiaryDateCountResponse, error)
 }
 
 type diaryUsecase struct {
@@ -45,6 +48,28 @@ func (du *diaryUsecase) GetDiaryById(userId uint, diaryId uint) (model.DiaryResp
 		UpdatedAt: diary.UpdatedAt,
 	}
 	return resDiary, nil
+}
+
+func (du *diaryUsecase) GetDiaryDates(userId uint, year, month string) (*model.DiaryDateCountResponse, error) {
+	y, _ := strconv.Atoi(year)
+	m, _ := strconv.Atoi(month)
+
+	data, err := du.dr.GetDiaryDates(userId, y, m)
+	if err != nil {
+		return nil, err
+	}
+
+	var diaryDates []model.DiaryDateCount
+	for _, d := range data {
+		diaryDates = append(diaryDates, model.DiaryDateCount{
+			Date:  d.Date,
+			Count: d.Count,
+		})
+	}
+
+	return &model.DiaryDateCountResponse{
+		Dates: diaryDates,
+	}, nil
 }
 
 func (du *diaryUsecase) CreateDiary(diary model.Diary) (model.DiaryResponse, error) {
