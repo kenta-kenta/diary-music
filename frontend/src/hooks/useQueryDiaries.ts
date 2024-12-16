@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
-import { PaginatedResponse, User } from '../types'
+import { PaginatedResponse, User, DiaryDatesResponse } from '../types'
 import { useError } from './useError'
+import { format } from 'date-fns'
 
 export const useQueryDiaries = (page: number = 1) => {
     const { switchErrorHandling } = useError()
@@ -28,6 +29,25 @@ export const useQueryDiaries = (page: number = 1) => {
         },
     })
 }
+
+export const useQueryDiaryDates = (date: Date) => {
+    const year = format(date, 'yyyy')
+    const month = format(date, 'M')
+    console.log(year, month)
+  
+    const answer = useQuery<DiaryDatesResponse>({
+      queryKey: ['diaryDates', year, month],
+      queryFn: async () => {
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_API_URL}/diaries/dates?year=${year}&month=${month}`,
+          { withCredentials: true }
+        )
+        return data
+      },
+    })
+    console.log(answer)
+    return answer
+  }
 
 export const useQueryUser = () => {
     return useQuery<User>({
