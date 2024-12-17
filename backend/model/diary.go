@@ -27,8 +27,8 @@ type DiaryDateResponse struct {
 }
 
 type DiaryDateCount struct {
-	Date  time.Time `json:"date"`
-	Count int       `json:"count"`
+	Date  string `json:"date"`
+	Count int    `json:"count"`
 }
 
 type DiaryDateCountResponse struct {
