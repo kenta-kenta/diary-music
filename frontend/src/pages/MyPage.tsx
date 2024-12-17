@@ -1,6 +1,7 @@
 import Profile from '../component/mypage/Profile'
 import Activity from '../component/mypage/Activity'
 import Setting from '../component/mypage/Setting'
+import Calendar from '../component/mypage/Calendar'
 
 export default function MyPage() {
   return (
@@ -8,6 +9,7 @@ export default function MyPage() {
       <Profile />
       <Activity />
       <Setting />
+      <Calendar />
     </div>
   )
 }
