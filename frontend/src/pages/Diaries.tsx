@@ -1,10 +1,17 @@
+import { useState, useEffect } from 'react'
 import { useQueryDiaries } from '../hooks/useQueryDiaries'
 import { DiaryItem } from '../component/diary/DiaryItem'
-import { useState } from 'react'
 
 const Diaries = () => {
   const [page, setPage] = useState(1)
   const { data, isLoading } = useQueryDiaries(page)
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }, [page])
 
   return (
     <div className="container mx-auto px-4 py-20">
