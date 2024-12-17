@@ -9,6 +9,9 @@ import {
   isSameMonth,
   addMonths,
   subMonths,
+  addDays,
+  startOfWeek,
+  endOfWeek,
 } from 'date-fns'
 import { ja } from 'date-fns/locale'
 import { useQueryDiaryDates } from '../../hooks/useQueryDiaries'
@@ -17,22 +20,29 @@ const Calendar: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(new Date())
   const { data: diaryDates } = useQueryDiaryDates(currentDate)
 
+  // 月の最初の週の開始日と月の最後の週の最終日を取得
   const monthStart = startOfMonth(currentDate)
   const monthEnd = endOfMonth(currentDate)
-  const monthDays = eachDayOfInterval({ start: monthStart, end: monthEnd })
+  const calendarStart = startOfWeek(monthStart, { locale: ja })
+  const calendarEnd = endOfWeek(monthEnd, { locale: ja })
+
+  // カレンダーに表示する全ての日付を取得
+  const calendarDays = eachDayOfInterval({
+    start: calendarStart,
+    end: calendarEnd,
+  })
 
   const handlePrevMonth = () => setCurrentDate(subMonths(currentDate, 1))
   const handleNextMonth = () => setCurrentDate(addMonths(currentDate, 1))
 
   const getDiaryCount = (date: Date) => {
     if (!diaryDates) return 0
+    if (!diaryDates.dates) return 0
     // 日付をyyyy-MM-dd形式に変換
     const formattedDate = date.toISOString().split('T')[0]
-    console.log(formattedDate)
     const found = diaryDates.dates.find((d) => d.date === formattedDate)
     return found ? found.count : 0
   }
-  console.log(getDiaryCount(new Date(2024, 12, 0, 0, 0, 0, 0)))
 
   return (
     <Card className="my-4 bg-white shadow-md rounded">
@@ -53,40 +63,35 @@ const Calendar: React.FC = () => {
         <div className="text-center mb-4 text-xl font-semibold text-gray-800">
           {format(currentDate, 'yyyy年 MM月', { locale: ja })}
         </div>
-        {/* 曜日を表示する */}
         <div className="grid grid-cols-7 gap-1">
           {['日', '月', '火', '水', '木', '金', '土'].map((day) => (
             <div
               key={day}
-              className="text-center py-2 text-sm font-medium text-gray-600"
+              className="text-center h-8 flex items-center justify-center text-sm font-medium text-gray-600"
             >
               {day}
             </div>
           ))}
-          {monthDays.map((day) => (
+          {calendarDays.map((day) => (
             <div
-              key={format(day, 'yyyy-MM-dd')}
+              key={format(addDays(day, 1), 'yyyy-MM-dd')}
               className={`
-                text-center py-2 rounded cursor-pointer
+                text-center h-12 w-full rounded cursor-pointer
+                flex flex-col justify-center items-center
                 ${!isSameMonth(day, currentDate) ? 'text-gray-300' : ''}
                 ${
                   format(day, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd')
-                    ? 'bg-orange-100'
+                    ? 'bg-orange-200 hover:bg-orange-300'
                     : ''
                 }
                 ${
-                  getDiaryCount(day) > 0
-                    ? 'bg-green-100 hover:bg-green-200'
+                  getDiaryCount(addDays(day, 1)) > 0
+                    ? 'bg-orange-100 hover:bg-orange-200'
                     : 'hover:bg-gray-100'
                 }
               `}
             >
               {format(day, 'd')}
-              {getDiaryCount(day) > 0 && (
-                <div className="text-xs text-green-600 font-medium">
-                  {getDiaryCount(day)}
-                </div>
-              )}
             </div>
           ))}
         </div>

@@ -33,7 +33,6 @@ export const useQueryDiaries = (page: number = 1) => {
 export const useQueryDiaryDates = (date: Date) => {
     const year = format(date, 'yyyy')
     const month = format(date, 'M')
-    console.log(year, month)
   
     const answer = useQuery<DiaryDatesResponse>({
       queryKey: ['diaryDates', year, month],
@@ -45,7 +44,6 @@ export const useQueryDiaryDates = (date: Date) => {
         return data
       },
     })
-    console.log(answer)
     return answer
   }
 
