@@ -24,3 +24,20 @@ export type Credential = {
     email: string;
     password: string;
 }
+
+export type PaginatedResponse = {
+  data: Diary[];
+  total_items: number;
+  page: number;
+  page_size: number;
+  total_pages: number;
+}
+
+export type DiaryDate = {
+    date: string;
+    count: number;
+}
+
+export type DiaryDatesResponse = {
+    dates: DiaryDate[];
+}

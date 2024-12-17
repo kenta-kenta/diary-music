@@ -7,9 +7,6 @@ type MainLayoutProps = {
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
-  // const [isLogin, setIsLogin] = useState(true)
-  // setIsLogin(true)
-
   return (
     <div>
       <Header isLogin={true} />
