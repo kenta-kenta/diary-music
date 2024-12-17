@@ -63,7 +63,7 @@ func (dr *diaryRepository) GetDiaryDates(userId uint, year, month int) ([]model.
 	var results []model.DiaryDateCount
 
 	err := dr.db.Model(&model.Diary{}).
-		Select("DATE(created_at) as date, COUNT(*) as count").
+		Select("TO_CHAR(DATE(created_at), 'YYYY-MM-DD') as date, COUNT(*) as count").
 		Where("user_id = ? AND EXTRACT(YEAR FROM created_at) = ? AND EXTRACT(MONTH FROM created_at) = ?",
 			userId, year, month).
 		Group("DATE(created_at)").
