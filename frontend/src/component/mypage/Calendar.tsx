@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { FC } from 'react'
 import { Card, CardContent, CardHeader, IconButton } from '@mui/material'
 import { ChevronLeft, ChevronRight } from '@mui/icons-material'
 import {
@@ -14,19 +14,28 @@ import {
   endOfWeek,
 } from 'date-fns'
 import { ja } from 'date-fns/locale'
-import { useQueryDiaryDates } from '../../hooks/useQueryDiaries'
 
-const Calendar: React.FC = () => {
-  const [currentDate, setCurrentDate] = useState(new Date())
-  const { data: diaryDates } = useQueryDiaryDates(currentDate)
+type CalendarProps = {
+  currentDate: Date
+  setCurrentDate: (date: Date) => void
+  diaryDates?: {
+    dates: {
+      date: string
+      count: number
+    }[]
+  }
+}
 
-  // 月の最初の週の開始日と月の最後の週の最終日を取得
+const Calendar: FC<CalendarProps> = ({
+  currentDate,
+  setCurrentDate,
+  diaryDates,
+}) => {
   const monthStart = startOfMonth(currentDate)
   const monthEnd = endOfMonth(currentDate)
   const calendarStart = startOfWeek(monthStart, { locale: ja })
   const calendarEnd = endOfWeek(monthEnd, { locale: ja })
 
-  // カレンダーに表示する全ての日付を取得
   const calendarDays = eachDayOfInterval({
     start: calendarStart,
     end: calendarEnd,
